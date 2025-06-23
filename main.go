@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fmt.Println(services.LengthOfLongestSubstring("a b c a b c")) // 3
-	fmt.Println(services.LengthOfLongestSubstring("abcabcbb"))    // 3
-	fmt.Println(services.LengthOfLongestSubstring("  "))          // 0
+	arr1 := []int{1, 2}
+	arr2 := []int{3, 4}
+	fmt.Printf("%f\n", services.FindMedianSortedArrays(arr1, arr2))
 }

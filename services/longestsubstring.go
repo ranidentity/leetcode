@@ -1,15 +1,15 @@
 package services
 
-import "fmt"
+// fmt.Println(services.LengthOfLongestSubstring("a b c a b c")) // 3
+// fmt.Println(services.LengthOfLongestSubstring("abcabcbb"))    // 3
+// fmt.Println(services.LengthOfLongestSubstring("  "))          // 0
 
 func LengthOfLongestSubstring(str string) int {
 	m := make(map[rune]int)
 	max, left := 0, 0
-	fmt.Println(str)
 	for idx, c := range str {
-		fmt.Printf("rune: %c idx: %d\n ", c, idx)
 		if _, okay := m[c]; okay == true && m[c] >= left {
-			fmt.Printf("repeated char with pointer m[c]: %d left: %d \n", m[c], left)
+			// m[c] = location of the character, if exist then move left +1,
 			if idx-left > max {
 				max = idx - left
 			}
