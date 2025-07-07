@@ -22,10 +22,10 @@ func GetPalindromic(s string) string {
 			l--
 			r++
 		}
+		fmt.Printf("ending: r = %d l = %d \n", r, l)
 		if r-l > pr-pl {
 			pl, pr = l, r
 		}
-		fmt.Printf("pl:%d pr:%d \n", pl, pr)
 		// reset to next mid point
 		l = (l+r)/2 + 1
 		r = l

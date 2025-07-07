@@ -8,7 +8,7 @@ func LengthOfLongestSubstring(str string) int {
 	m := make(map[rune]int)
 	max, left := 0, 0
 	for idx, c := range str {
-		if _, okay := m[c]; okay == true && m[c] >= left {
+		if _, okay := m[c]; okay && m[c] >= left {
 			// m[c] = location of the character, if exist then move left +1,
 			if idx-left > max {
 				max = idx - left
