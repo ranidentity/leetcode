@@ -1,7 +1,7 @@
 package services
 
-//mississippi	"mis*is*ip*."
-//ab a**
+// mississippi	"mis*is*ip*."
+// ab a**
 // "." any cahracter , "*" multiple
 func IsMatch2(s string, p string) bool {
 	if p == ".*" {
@@ -30,8 +30,6 @@ func IsMatch2(s string, p string) bool {
 	}
 	flag := true
 	for _, i := range buf {
-		for _, j := range i {
-		}
 		if s[:len(i)] == i {
 			continue
 		} // mis s*
