@@ -6,6 +6,19 @@ import (
 	"time"
 )
 
+/**
+Variations You Can Propose in Interview
+Add a timeout using select and time.After.
+
+Limit results printing to the first 10.
+
+Add error handling (chan error).
+
+Create a more realistic "job" struct (e.g., {id, url}).
+
+Dynamically scale the number of workers based on system load (stretch question).
+*/
+
 const (
 	numJobs    = 100
 	numWorkers = 5
