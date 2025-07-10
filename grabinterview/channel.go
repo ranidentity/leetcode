@@ -2,7 +2,6 @@ package grabinterview
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"sync"
 )
@@ -110,48 +109,4 @@ func AdvanceChannelMerging(ctx context.Context, chs ...<-chan int) <-chan int {
 		close(out)
 	}()
 	return out
-}
-
-func ErrorChannel() {
-	var wg sync.WaitGroup
-	errChan := make(chan error, 3) // buffered to avoid goroutine leaks
-
-	tasks := []func() error{
-		func() error {
-			// Simulate a successful task
-			fmt.Println("Task 1: success")
-			return nil
-		},
-		func() error {
-			// Simulate a failed task
-			return errors.New("Task 2 failed")
-		},
-		func() error {
-			// Simulate another successful task
-			fmt.Println("Task 3: success")
-			return nil
-		},
-	}
-
-	// Launch all tasks concurrently
-	for _, task := range tasks {
-		wg.Add(1)
-		go func(fn func() error) {
-			defer wg.Done()
-			if err := fn(); err != nil {
-				errChan <- err
-			}
-		}(task)
-	}
-
-	// Close error channel once all tasks are done
-	go func() {
-		wg.Wait()
-		close(errChan)
-	}()
-
-	// Handle any errors
-	for err := range errChan {
-		fmt.Println("Error:", err)
-	}
 }

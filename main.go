@@ -6,6 +6,6 @@ import (
 
 func main() {
 
-	grabinterview.ChannelMerging()
+	grabinterview.ChannelTestClosing()
 	// services.ImplementingGenerateCombinations()
 }
