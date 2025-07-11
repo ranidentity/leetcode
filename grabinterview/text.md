@@ -7,3 +7,6 @@ backend
 - caching
 - stream large data instead of loading into memory
 
+closed channel behavior
+- cannot send in (will crash)
+- can be read? 

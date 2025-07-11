@@ -110,3 +110,12 @@ func AdvanceChannelMerging(ctx context.Context, chs ...<-chan int) <-chan int {
 	}()
 	return out
 }
+
+func channelExample() {
+	ch := make(chan string)
+	go func() {
+		ch <- "data"
+	}()
+	msg := <-ch
+	fmt.Println(msg)
+}
