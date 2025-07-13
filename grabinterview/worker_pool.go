@@ -13,9 +13,6 @@ func Worker(id int, jobs <-chan int, result chan<- int, wg *sync.WaitGroup) {
 }
 
 func WorkerPool() {
-	const numJobs = 10
-	const numWorkers = 3
-
 	jobs := make(chan int, numJobs)
 	results := make(chan int, numJobs)
 	var wg sync.WaitGroup
@@ -31,14 +28,9 @@ func WorkerPool() {
 		wg.Wait()
 		close(results) // Close results when all workers are done
 	}()
-
 	// Collect results
 	for result := range results {
 		fmt.Println("Result:", result)
 	}
-
-}
-
-func WorkerPoolWithContext() {
 
 }

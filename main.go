@@ -1,11 +1,9 @@
 package main
 
-import (
-	"leetcode/grabinterview"
-)
+import workerpool "leetcode/worker_pool"
 
 func main() {
-
-	grabinterview.ProducerConsumerSystem()
+	workerpool.FanInWorkerPool()
+	// grabinterview.MainWorkerPoolWithContext()
 	// services.ImplementingGenerateCombinations()
 }

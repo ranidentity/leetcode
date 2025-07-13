@@ -16,6 +16,12 @@ Brush up on –
 
 1. basics of Goroutine
 - channel
+    - worker pool
+        - fan in/out
+        - pipeline
+    - worker pool with context
+    - channel merging
+    - channel goroutine closure
 - mutex
 - waitgroup
 2. One of the question was increasing memory space in app/website. How do you continuously increase the memory?

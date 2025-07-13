@@ -38,7 +38,7 @@ func ReadData() map[string]*CustomerVisit {
 
 func FindRepeatVisitor(data map[string]*CustomerVisit, durationInDay int, minCount int) []string {
 	var result []string
-	days := time.Duration(durationInDay) * 24 * time.Hour
+	days := time.Duration(durationInDay) * 24 * time.Hour // e.g. 2 days
 
 	for customerId, CustomerVisit := range data {
 		for _, timestamps := range CustomerVisit.PageViews {
@@ -46,6 +46,7 @@ func FindRepeatVisitor(data map[string]*CustomerVisit, durationInDay int, minCou
 				return timestamps[i].Before(timestamps[j])
 			})
 			for i := 0; i <= len(timestamps)-minCount; i++ {
+				// check visit > minCount day
 				if timestamps[i+minCount-1].Sub(timestamps[i]) <= days {
 					result = append(result, customerId)
 					break
