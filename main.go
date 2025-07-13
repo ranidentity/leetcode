@@ -1,9 +1,9 @@
 package main
 
-import workerpool "leetcode/worker_pool"
+import "leetcode/services"
 
 func main() {
-	workerpool.FanInWorkerPool()
+	// workerpool.FanInWorkerPool()
 	// grabinterview.MainWorkerPoolWithContext()
-	// services.ImplementingGenerateCombinations()
+	services.ImplementingGenerateCombinations()
 }

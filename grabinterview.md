@@ -19,6 +19,10 @@ Brush up on –
     - worker pool
         - fan in/out
         - pipeline
+        - worker pool
+        - pub sub
+        - Request/Response Pattern
+        - Timeout Pattern
     - worker pool with context
     - channel merging
     - channel goroutine closure
