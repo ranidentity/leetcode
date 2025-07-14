@@ -9,4 +9,4 @@ backend
 
 closed channel behavior
 - cannot send in (will crash)
-- can be read? 
+- can be read? yes

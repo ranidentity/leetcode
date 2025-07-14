@@ -1,11 +1,11 @@
-package grabinterview
+package channel
 
 import (
 	"fmt"
 	"sync"
 )
 
-func Worker(id int, jobs <-chan int, result chan<- int, wg *sync.WaitGroup) {
+func myworker(id int, jobs <-chan int, result chan<- int, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for job := range jobs {
 		result <- job
@@ -13,12 +13,15 @@ func Worker(id int, jobs <-chan int, result chan<- int, wg *sync.WaitGroup) {
 }
 
 func WorkerPool() {
+	const numJobs = 10
+	const numWorkers = 3
+
 	jobs := make(chan int, numJobs)
 	results := make(chan int, numJobs)
 	var wg sync.WaitGroup
 	for w := 1; w <= numWorkers; w++ {
 		wg.Add(1)
-		go worker(w, jobs, results, &wg)
+		go myworker(w, jobs, results, &wg)
 	}
 	for j := 1; j <= numJobs; j++ {
 		jobs <- j

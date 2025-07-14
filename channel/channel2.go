@@ -1,4 +1,4 @@
-package grabinterview
+package channel
 
 import (
 	"errors"

@@ -1,9 +1,13 @@
 package main
 
-import "leetcode/services"
+import (
+	"fmt"
+	"leetcode/services"
+)
 
 func main() {
 	// workerpool.FanInWorkerPool()
 	// grabinterview.MainWorkerPoolWithContext()
-	services.ImplementingGenerateCombinations()
+	// services.ImplementingGenerateCombinations()
+	fmt.Println(services.LetterCombinations2("jalan gertak sanggul"))
 }
