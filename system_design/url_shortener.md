@@ -1,0 +1,21 @@
+Requirement
+- Functional
+    - shorten url
+    - redirect url
+    - custom url
+    - expiration
+    - analytics
+    - user account
+- Non-Functional
+    - High availability
+    - latency
+    - unpredictability
+    - cost
+- Special note:
+    - capacity estimation
+    - read to write ratio
+    - data retention
+    - average record size:
+        - short url ~14 bytes
+        - long url (256) ~512 bytes
+        - others data ~50 bytes
