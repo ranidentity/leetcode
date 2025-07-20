@@ -4,3 +4,4 @@ Secondary Focus: Layer 1 and Layer 2 mechanics, as they impact contract performa
 
 optimize gas usage
 reentrancy attacks and how to prevent them
+ZKP
