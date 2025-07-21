@@ -63,4 +63,15 @@ Scalability
     - load balancer
     - add new instance
     - db sharding, partitioning
-- Vertical scaling  
+- Active-passive/ active-active setup
+
+Security
+- HTTPS
+- Authentication and authorization - JWt, oauth2
+- monitoring and alert
+
+Bottleneck and trade off
+- Database scalability
+- performance issues
+- real time recommendation
+- 
