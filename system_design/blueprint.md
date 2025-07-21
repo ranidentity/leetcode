@@ -5,6 +5,8 @@
     - datastore: DB - sql, nosql
     - queue implementation, grpc, kafka
     - microservices: modularity, performance, scalability
+    - size of the payload
+        - 1 char= 1 byte
 
 Situation - 
 Tasks - 
