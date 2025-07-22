@@ -27,7 +27,7 @@ func GetPalindromic(s string) string {
 			pl, pr = l, r
 		}
 		// reset to next mid point
-		l = (l+r)/2 + 1
+		l = (l+r)/2 + 1 // 5/2+1 = 3
 		r = l
 	}
 	return s[pl : pr+1]

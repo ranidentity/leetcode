@@ -98,5 +98,46 @@ func MiniSemaphore() {
 
 	wg.Wait() // Wait for all goroutines to finish
 	fmt.Println("All tasks completed")
+}
 
+func MiniSemaphoreWithTimeout() {
+	const (
+		totalTasks    = 10              // Total tasks to run
+		maxConcurrent = 3               // Max goroutines allowed at once
+		timeout       = 3 * time.Second // Timeout duration
+	)
+
+	var wg sync.WaitGroup
+	sem := make(chan struct{}, maxConcurrent) // Semaphore channel
+
+	// Create a context with timeout
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel() // Ensure the context is canceled when the function exits
+
+	for i := 0; i < totalTasks; i++ {
+		wg.Add(1)
+
+		// Acquire semaphore (blocks if full)
+		sem <- struct{}{}
+
+		go func(taskID int) {
+			defer wg.Done()
+			defer func() { <-sem }() // Release semaphore when done
+
+			select {
+			case <-ctx.Done():
+				// Context was canceled (timeout exceeded)
+				fmt.Printf("Task %d canceled due to timeout\n", taskID)
+				return
+			default:
+				// Simulate work
+				fmt.Printf("Task %d started\n", taskID)
+				time.Sleep(time.Second * 2)
+				fmt.Printf("Task %d completed\n", taskID)
+			}
+		}(i)
+	}
+
+	wg.Wait() // Wait for all goroutines to finish
+	fmt.Println("All tasks completed or timeout exceeded")
 }
