@@ -29,7 +29,7 @@ func (s *Semaphore) Release() {
 	<-s.permits
 }
 
-func main() {
+func MySemaphore() {
 	// Create a semaphore with 3 concurrent permits
 	sem := NewSemaphore(3)
 
@@ -45,7 +45,7 @@ func main() {
 
 	for i := 0; i < numTasks; i++ {
 		wg.Add(1)
-		taskID := i
+		// taskID := i
 
 		go func(id int) {
 			defer wg.Done()
@@ -68,4 +68,35 @@ func main() {
 	// Wait for all tasks to complete
 	wg.Wait()
 	fmt.Println("All tasks completed")
+}
+
+func MiniSemaphore() {
+	const (
+		totalTasks    = 10 // Total tasks to run
+		maxConcurrent = 3  // Max goroutines allowed at once
+	)
+
+	var wg sync.WaitGroup
+	sem := make(chan struct{}, maxConcurrent) // Semaphore channel
+
+	for i := 0; i < totalTasks; i++ {
+		wg.Add(1)
+
+		// Acquire semaphore (blocks if full)
+		sem <- struct{}{}
+
+		go func(taskID int) {
+			defer wg.Done()
+			defer func() { <-sem }() // Release semaphore when done
+
+			// Simulate work
+			fmt.Printf("Task %d started\n", taskID)
+			time.Sleep(time.Second * 2)
+			fmt.Printf("Task %d completed\n", taskID)
+		}(i)
+	}
+
+	wg.Wait() // Wait for all goroutines to finish
+	fmt.Println("All tasks completed")
+
 }

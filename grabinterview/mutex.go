@@ -16,6 +16,7 @@ func increment() {
 	mu.Unlock() // Unlock the mutex after done
 }
 
+// slower is read heavy scenario
 func MutexTest() {
 	var wg sync.WaitGroup
 
@@ -46,6 +47,8 @@ func writeValue(v int) {
 	value = v
 	rwMu.Unlock()
 }
+
+// Writes are more expensive than with sync.Mutex due to the additional overhead of managing read and write locks.
 func RWMutexTest() {
 	var wg sync.WaitGroup
 	for i := 0; i < 1000; i++ {
