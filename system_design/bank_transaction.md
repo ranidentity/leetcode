@@ -66,3 +66,10 @@ client --> API --[kafka]--> Services --> Data store
 - Async Processing
     - Offload non-critical path (notifications, analytics)
     - Event-driven architecture
+- Logging
+    - elastic stack+ kibana
+        - order/execution loging
+    - market data analyst
+    - Complaince monitoring
+    - Risk management
+        - real time position tracking
