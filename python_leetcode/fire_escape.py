@@ -1,69 +1,74 @@
 from collections import deque
 
 def canEscape(grid):
-    rows=len(grid)
+    rows = len(grid)
     if rows == 0:
         return False
     cols = len(grid[0])
-
-    #find initial position
-    person_pos = None
-    fire_pos = None
+    
+    # Find initial positions
+    person = None
+    fire = None
     exit_pos = None
-
+    
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == 'P':
-                person_pos = (i,j)
+                person = (i, j)
             elif grid[i][j] == 'F':
-                fire_pos = (i,j)
+                fire = (i, j)
             elif grid[i][j] == 'E':
-                exit_pos = (i,j)
-    if not person_pos or not fire_pos or not exit_pos:
+                exit_pos = (i, j)
+    
+    if not person or not fire or not exit_pos:
         return False
     
-    # movement direction
-    dirs = [(-1,0),(1,0),(0,-1),(0,1)]
-
-    #Queue for BFS
-    person_queue = deque([(person_pos[0],person_pos[1])])
-    fire_queue = deque([(fire_pos[0],fire_pos[1])])
-
-    # To keep track of visited cells and burning cells
-    visited = [[False for _ in range(cols)] for _ in range(rows)]
-    fire_spread = [[False for _ in range(cols)] for _ in range(rows)]
-    fire_spread[fire_pos[0]][fire_pos[1]] = True
+    # Precompute fire arrival times
+    # row = 3, col = 4
+    # [
+    #   [inf, inf, inf, inf],
+    #   [inf, inf, inf ,inf],
+    #   [inf, inf, inf, inf]
+    # ]
+    fire_time = [[float('inf')] * cols for _ in range(rows)] 
+    fire_queue = deque()
+    fire_queue.append((fire[0], fire[1]))
+    fire_time[fire[0]][fire[1]] = 0
     
-    time = 0
-
+    dirs = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    
+    while fire_queue:
+        x, y = fire_queue.popleft()
+        for dx, dy in dirs:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rows and 0 <= ny < cols:
+                if grid[nx][ny] != 'W' and fire_time[nx][ny] == float('inf'):
+                    fire_time[nx][ny] = fire_time[x][y] + 1
+                    fire_queue.append((nx, ny))
+    
+    # BFS for person
+    visited = [[False] * cols for _ in range(rows)]
+    person_queue = deque()
+    person_queue.append((person[0], person[1], 0))  # (x, y, time)
+    visited[person[0]][person[1]] = True
+    
     while person_queue:
-        # Person moves first
-        level_size = len(person_queue)
-        for _ in range(level_size):
-            x,y = person_queue.popleft()
-
-            if fire_spread[x][y]:
-                continue
-
-            if (x,y) == exit_pos:
-                return True
-            
-            for dx, dy in dirs:
-                nx, ny = x+dx, y+dy
-                if 0 <= nx < rows and 0 <= ny < cols:
-                    if not visited[nx][ny] and grid[nx][ny] != 'W' and not fire_spread[nx][ny]:
-                        visited[nx][ny] = True
-                        person_queue.append((nx,ny))
-        #then fire spread
-        fire_size = len(fire_queue)
-        for _ in range(fire_size):
-            fx, fy = fire_queue.popleft()
-            for dx,dy in dirs:
-                nfx,nfy = fx+dx, fy+dy
-                if 0 <= nfx < rows and 0 <= nfy<cols:
-                    if not fire_spread[nfx][nfy] and grid[nfx][nfy] != 'W':
-                        fire_spread[nfx][nfy] = True
-                        fire_queue.append((nfx,nfy))
+        x, y, time = person_queue.popleft()
         
-        time+= 1
+        # Check if reached exit
+        if (x, y) == exit_pos:
+            if time < fire_time[x][y]:
+                return True
+            else:
+                continue  # exit is on fire at or before arrival
+        
+        for dx, dy in dirs:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rows and 0 <= ny < cols:
+                if not visited[nx][ny] and grid[nx][ny] != 'W':
+                    # Person arrives at new cell at time + 1
+                    if time + 1 < fire_time[nx][ny]:
+                        visited[nx][ny] = True
+                        person_queue.append((nx, ny, time + 1))
+    
     return False
