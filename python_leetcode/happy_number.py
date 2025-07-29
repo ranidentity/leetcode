@@ -14,19 +14,21 @@ def is_happy(n:int) ->bool:
     Returns:
         True if the number is happy, False otherwise.
     """
-    def get_next_number(num):
+    def get_next_number(num): # 16 # 37
         total_sum = 0
         while num>0:
-            digit = num % 10
-            total_sum += digit *digit
-            num //= 10
+            digit = num % 10 # 4 # 6, 1 # 7, 3
+            total_sum += digit *digit # 16 # 36,+1 37 # 49 + 9 
+            num //= 10 # 0 # 1, 0 # 3, 0
         return total_sum
-    
+     
     seen_numbers = set()
 
     current_number = n
     while current_number != 1 and current_number not in seen_numbers:
-        seen_numbers.add(current_number)
-        current_number = get_next_number(current_number)
+        seen_numbers.add(current_number) #4 # 16 
+        current_number = get_next_number(current_number) #16 #37 # 58
 
-    return current_number == 1
+    return current_number== 1
+
+print(is_happy(4))
