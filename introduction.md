@@ -9,7 +9,12 @@ Sport information portal
 It used the Gin framework to expose REST APIs, integrated with MySql for data persistence, and leveraged Go’s concurrency model to handle thousands of requests per second.
 Redis store shared data model
 
-1 How did you handle cache invalidation
+1 How did you handle JWT cache invalidation
 - expiry time control
 - Event driven invalidation
 - Concurrency during invalidation - RMutex - prevent race conditions
+
+2. hardest part
+- understanding goroutine
+- implementation of kafka
+- 
